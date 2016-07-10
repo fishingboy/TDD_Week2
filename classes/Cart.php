@@ -91,7 +91,8 @@ class Cart
             // 判斷是否有符合的折扣規則
             foreach ($this->discount_rules as $discount_rule) {
                 if (count($discount_groups) == $discount_rule['group_size']) {
-                    $total = $this->calculateDiscount($discount_groups, $discount_rule);
+                    $total += $this->calculateDiscount($discount_groups, $discount_rule);
+                    $find_discount_group = true;
                 }
             }
         } while($find_discount_group);
