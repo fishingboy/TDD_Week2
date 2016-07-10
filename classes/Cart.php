@@ -12,6 +12,7 @@ class Cart
      * @var array
      */
     private $discount_rules = [
+        ['group_size' => 4, 'discount' => 0.8],
         ['group_size' => 3, 'discount' => 0.9],
         ['group_size' => 2, 'discount' => 0.95],
     ];
