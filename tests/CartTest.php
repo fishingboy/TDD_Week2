@@ -137,7 +137,7 @@ class CartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function test_buy_bookNo1_quantity_is_1_and_BookNo2_quantity_is_1_and_BookNo3_quantity_is_2_total_should_be_375()
+    public function test_buy_bookNo1_quantity_is_1_and_BookNo2_quantity_is_1_and_BookNo3_quantity_is_2_total_should_be_370()
     {
         // arrange
         $target = new Cart();
@@ -181,6 +181,28 @@ class CartTest extends PHPUnit_Framework_TestCase
         $target->addProduct($product, $quantity);
         
         $expected = 460;
+
+        // act
+        $actual = $target->calculateTotal();
+
+        // assert
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function test_buy_bookNo1_quantity_is_2_and_BookNo2_quantity_is_2_total_should_be_380()
+    {
+        // arrange
+        $target = new Cart();
+        
+        $product = ['no' => 1, 'price' => 100];
+        $quantity = 2;
+        $target->addProduct($product, $quantity);
+
+        $product = ['no' => 2, 'price' => 100];
+        $quantity = 2;
+        $target->addProduct($product, $quantity);
+        
+        $expected = 380;
 
         // act
         $actual = $target->calculateTotal();
