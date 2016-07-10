@@ -53,22 +53,37 @@ class Cart
                     'index' => $index
                 ];
 
-                // 如果找到兩本就打 95 折
-                if (count($discount_groups) == 2) {
-                    $find_discount_group = true;
 
-                    // 計算折扣的價錢
-                    foreach ($discount_groups as $discount_group) {
-                        // 95 折
-                        $total += $discount_group['product']['price'] * 0.95;
-
-                        // 打完折從購物車拿掉
-                        $remove_index = $discount_group['index'];
-                        $this->products[$remove_index]['quantity']--;  
-                    }
-                    break;
-                }
+                if (count($discount_groups) >= 3) break;
             }            
+
+            if (count($discount_groups) == 3) {
+                $find_discount_group = true;
+
+                // 計算折扣的價錢
+                foreach ($discount_groups as $discount_group) {
+                    // 95 折
+                    $total += $discount_group['product']['price'] * 0.9;
+
+                    // 打完折從購物車拿掉
+                    $remove_index = $discount_group['index'];
+                    $this->products[$remove_index]['quantity']--;  
+                }
+            } elseif (count($discount_groups) == 2) {
+                // 如果找到兩本就打 95 折
+
+                $find_discount_group = true;
+
+                // 計算折扣的價錢
+                foreach ($discount_groups as $discount_group) {
+                    // 95 折
+                    $total += $discount_group['product']['price'] * 0.95;
+
+                    // 打完折從購物車拿掉
+                    $remove_index = $discount_group['index'];
+                    $this->products[$remove_index]['quantity']--;  
+                }
+            }
         } while($find_discount_group);
 
         return $total;
